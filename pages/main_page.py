@@ -1,41 +1,38 @@
-import time
-
 from locators.main_page_locators import MainPageLocators
+from pages.base_page import BasePage
+import allure
 
 
-class MainPage:
-    yandex_logo = MainPageLocators.YANDEX_LOGO
-    main_logo = MainPageLocators.SAMOKAT_LOGO
-    order_button_header = MainPageLocators.ORDER_BUTTON_HEADER
-    order_button_footer = MainPageLocators.ORDER_BUTTON_FOOTER
-    cookie_button = MainPageLocators.COOKIE
-    header = MainPageLocators.HEADER
+class MainPage(BasePage):
 
-    def __init__(self, driver):
-        self.driver = driver
-
+    @allure.step('click_on_yandex_logo')
     def click_on_yandex_logo(self):
-        self.driver.find_element(*self.yandex_logo).click()
+        #self.find_element(MainPageLocators.YANDEX_LOGO)
+        self.find_element_and_click(MainPageLocators.YANDEX_LOGO)
 
+    @allure.step('click_on_main_logo')
     def click_on_main_logo(self):
-        self.driver.find_element(*self.main_logo).click()
+        self.find_element_and_click(MainPageLocators.SAMOKAT_LOGO)
 
+    @allure.step('click_order_header')
     def click_order_header(self):
-        self.driver.find_element(*self.order_button_header).click()
+        self.find_element_and_click(MainPageLocators.ORDER_BUTTON_HEADER)
 
+    @allure.step('click_order_footer')
     def click_order_footer(self):
-        self.driver.find_element(*self.order_button_footer).click()
+        self.find_element_and_click(MainPageLocators.ORDER_BUTTON_FOOTER)
 
+    @allure.step('assept_cookie')
     def assept_cookie(self):
-        self.driver.find_element(*self.cookie_button).click()
+        self.find_element_and_click(MainPageLocators.COOKIE)
 
+    @allure.step('check_header_text')
     def check_header_text(self):
-        text = self.driver.find_element(*self.header).text
+        text = self.find_element_get_text(MainPageLocators.HEADER)
         assert 'Самокат' in text
 
+    @allure.step('check_yandex_redirect')
     def check_yandex_redirect(self):
-        all_tabs = self.driver.window_handles
-        self.driver.switch_to.window(all_tabs[1])
-        current_url = self.driver.current_url
+        self.switch_window()
+        current_url = self.get_url()
         assert 'ya.ru' or 'yandex.ru' in current_url
-

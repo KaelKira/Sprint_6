@@ -1,27 +1,21 @@
-from selenium.webdriver.common.by import By
+import allure
 from locators.order_page_one_locators import OrderPageOneLocators
 from constants import Constants
+from pages.base_page import BasePage
 
 
-class OrderPageOne:
-    name = OrderPageOneLocators.NAME
-    surname = OrderPageOneLocators.SURNAME
-    adress = OrderPageOneLocators.ADRESS
-    metro = OrderPageOneLocators.METRO
-    phone = OrderPageOneLocators.PHONE
-    next_button = OrderPageOneLocators.NEXT_BUTTON
-    metro_selector = OrderPageOneLocators.METRO_SELECTOR
+class OrderPageOne(BasePage):
 
-    def __init__(self, driver):
-        self.driver = driver
-
+    @allure.step('fill_first_form')
     def fill_form(self):
-        self.driver.find_element(*self.name).send_keys(Constants.NAME)
-        self.driver.find_element(*self.surname).send_keys(Constants.SURNAME)
-        self.driver.find_element(*self.adress).send_keys(Constants.ADRESS)
-        self.driver.find_element(*self.metro).send_keys(Constants.METRO)
-        self.driver.find_element(*self.metro_selector).click()
-        self.driver.find_element(*self.phone).send_keys(Constants.PHONE)
+        #self.find_element(OrderPageOneLocators.NAME,Constants.NAME)
+        self.send_key(OrderPageOneLocators.NAME, Constants.NAME)
+        self.send_key(OrderPageOneLocators.SURNAME,Constants.SURNAME)
+        self.send_key(OrderPageOneLocators.ADRESS,Constants.ADRESS)
+        self.send_key(OrderPageOneLocators.METRO,Constants.METRO)
+        self.find_element_and_click(OrderPageOneLocators.METRO_SELECTOR)
+        self.send_key(OrderPageOneLocators.PHONE,Constants.PHONE)
 
+    @allure.step('click_next')
     def click_next(self):
-        self.driver.find_element(*self.next_button).click()
+        self.find_element_and_click(OrderPageOneLocators.NEXT_BUTTON)
