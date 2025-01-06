@@ -7,7 +7,6 @@ class MainPage(BasePage):
 
     @allure.step('click_on_yandex_logo')
     def click_on_yandex_logo(self):
-        #self.find_element(MainPageLocators.YANDEX_LOGO)
         self.find_element_and_click(MainPageLocators.YANDEX_LOGO)
 
     @allure.step('click_on_main_logo')

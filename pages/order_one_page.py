@@ -8,7 +8,6 @@ class OrderPageOne(BasePage):
 
     @allure.step('fill_first_form')
     def fill_form(self):
-        #self.find_element(OrderPageOneLocators.NAME,Constants.NAME)
         self.send_key(OrderPageOneLocators.NAME, Constants.NAME)
         self.send_key(OrderPageOneLocators.SURNAME,Constants.SURNAME)
         self.send_key(OrderPageOneLocators.ADRESS,Constants.ADRESS)
